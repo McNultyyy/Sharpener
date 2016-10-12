@@ -9,7 +9,7 @@ namespace Sharpener.Core
     {
         public static string GetMemberName(this Expression expression)
         {
-            if (expression == null) throw new ArgumentNullException(nameof(expression));
+            if (expression == null) throw new ArgumentNullException("expression");
 
             var callExpression = expression as MethodCallExpression;
             if (callExpression != null) return callExpression.Method.Name;
