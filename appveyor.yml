@@ -9,6 +9,12 @@ platform:
 - Any CPU
 - x86
 - x64
+before_build:
+- cmd: nuget restore
 build:
+  project: Sharpener.sln
   parallel: true
   verbosity: minimal
+cache:
+- packages -> **\packages.config
+- '%LocalAppData%\NuGet\Cache'
