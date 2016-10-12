@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Sharpener.Core;
 
 namespace Sharpener.Core.Test
 {

@@ -79,13 +79,13 @@
     <Compile Include="UrlHelperExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Sharpener.Core\Sharpener.Core.csproj">
       <Project>{7116FD6C-5B9C-4C65-AB53-67DA0F26AE90}</Project>
       <Name>Sharpener.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
