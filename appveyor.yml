@@ -7,8 +7,6 @@ configuration:
 - Release
 platform:
 - Any CPU
-- x86
-- x64
 before_build:
 - cmd: nuget restore
 build:
