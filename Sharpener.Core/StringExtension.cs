@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 
 namespace Sharpener.Core
 {
@@ -10,23 +12,38 @@ namespace Sharpener.Core
         {
             return string.Format(format, args);
         }
-        
-        public static string FormatWith(this string input, params Expression<Func<object, object>>[] expr)
+
+        public static string FormatWith(this string input, params Expression<Func<object>>[] expr)
         {
-            var indexValueDict = expr.Select((item, index) => 
-                new Tuple<string, object, int>(
-                    item.GetMemberName(), //name
-                    item.Compile().Invoke(null), //value
-                    index //index
-                )).ToList();
+            var pattern = new Regex(@"\{(\w+)(\:.*?)?\}");
 
-            foreach (var pair in indexValueDict)
-                input = input.Replace("{" + pair.Item1, "{" + pair.Item3);
+            var nameValueDict = expr.ToDictionary(x => x.GetMemberName(), x => x.Compile().Invoke());
 
-            var args = indexValueDict.Select(x => x.Item2).ToArray();
-            var resultFormat = String.Format(input, args);
 
-            return resultFormat;
+            var dict = new Dictionary<string, int>();
+            var counter = 0;
+            var objs = new List<object>();
+            foreach (Match match in pattern.Matches(input))
+            {
+                var name = match.Groups[1].Value;
+                var nameFormatting = match.Groups[2].Value;
+                var stringToFind = String.Format("{{{0}{1}}}", name, nameFormatting);
+                var value = nameValueDict[name];
+
+                int formatIndex;
+                if (!dict.TryGetValue(name, out formatIndex))
+                {
+                    dict.Add(name, counter);
+                    formatIndex = counter;
+                    counter++;
+                    var replacementString = String.Format("{{{0}{1}}}", formatIndex, nameFormatting);
+                    input = input.Replace(stringToFind, replacementString);
+                    objs.Add(value);
+                }
+            }
+
+            var result = String.Format(input, objs.Distinct().ToArray());
+            return result;
         }
     }
 }

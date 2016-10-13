@@ -47,8 +47,8 @@ namespace Sharpener.Core
                     format = format.Replace(stringToFind, replacementString);
                     objs.Add(value);
                 }
-
             }
+
             var result = String.Format(format, objs.Distinct().ToArray());
             return result;
         }

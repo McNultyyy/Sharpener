@@ -19,5 +19,35 @@ namespace Sharpener.Core
         {
             return 1.To(amount).Select(x => instance);
         }
+
+        public static bool IsEven(this int input)
+        {
+            return input % 2 == 0;
+        }
+
+        public static bool IsOdd(this int input)
+        {
+            return !IsEven(input);
+        }
+
+        public static int RoundToNearest(this int input, int nearest, MidpointRounding roundingMode = MidpointRounding.AwayFromZero)
+        {
+            var dResult = Convert.ToDouble(input) / Convert.ToDouble(nearest);
+            var dResultRounded = Convert.ToInt32(Math.Round(dResult, roundingMode));
+            var result = dResultRounded * nearest;
+            return result;
+        }
+
+        public static bool IsPrime(this int number)
+        {
+            if (number == 1) return false;
+            if (number == 2) return true;
+
+            var boundary = (int)Math.Floor(Math.Sqrt(number));
+            for (int i = 2; i <= boundary; ++i)
+                if (number%i == 0) return false;
+
+            return true;
+        }
     }
 }
