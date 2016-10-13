@@ -21,5 +21,34 @@ namespace Sharpener.Core
         {
             if (obj == null) throw new NullReferenceException(callingObjectName ?? "obj");
         }
+        
+        public static string ToString<T>(this T instance, string format)
+        {
+            var pattern = new Regex(@"\{(\w+)(\:.*?)?\}");
+
+            var dict = new Dictionary<string, int>();
+            var counter = 0;
+            var objs = new List<object>();
+            foreach (Match match in pattern.Matches(format))
+            {
+                var name = match.Groups[1].Value;
+                var nameFormatting = match.Groups[2].Value;
+                var stringToFind = String.Format("{{{0}{1}}}", name, nameFormatting);
+                var value = typeof(T).GetProperty(name).GetValue(instance);
+                objs.Add(value);
+
+                int formatIndex;
+                if (!dict.TryGetValue(name, out formatIndex))
+                {
+                    dict.Add(name, counter);
+                    formatIndex = counter;
+                    counter++;
+                }
+                var replacementString = String.Format("{{{0}{1}}}", formatIndex, nameFormatting);
+                format = format.Replace(stringToFind, replacementString);
+            }
+            var result = String.Format(format, objs.ToArray());
+            return result;
+        }
     }
 }
