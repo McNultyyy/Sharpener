@@ -8,10 +8,11 @@ namespace Sharpener.Core
     {
         public static IEnumerable<int> To(this int start, int end)
         {
-            var diff = Math.Abs(end - start +1);
+            var posDiff = Math.Abs(end - start +1);
+            var negDiff = Math.Abs(start - end + 1);
             if (end > start)
-                return Enumerable.Range(start, diff);
-            return Enumerable.Range(end, diff).Reverse();
+                return Enumerable.Range(start, posDiff);
+            return Enumerable.Range(end, negDiff).Reverse();
         }
     }
 }
