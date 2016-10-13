@@ -36,7 +36,6 @@ namespace Sharpener.Core
                 var nameFormatting = match.Groups[2].Value;
                 var stringToFind = String.Format("{{{0}{1}}}", name, nameFormatting);
                 var value = typeof(T).GetProperty(name).GetValue(instance);
-                objs.Add(value);
 
                 int formatIndex;
                 if (!dict.TryGetValue(name, out formatIndex))
@@ -44,11 +43,13 @@ namespace Sharpener.Core
                     dict.Add(name, counter);
                     formatIndex = counter;
                     counter++;
+                    var replacementString = String.Format("{{{0}{1}}}", formatIndex, nameFormatting);
+                    format = format.Replace(stringToFind, replacementString);
+                    objs.Add(value);
                 }
-                var replacementString = String.Format("{{{0}{1}}}", formatIndex, nameFormatting);
-                format = format.Replace(stringToFind, replacementString);
+
             }
-            var result = String.Format(format, objs.ToArray());
+            var result = String.Format(format, objs.Distinct().ToArray());
             return result;
         }
     }
