@@ -21,7 +21,7 @@ namespace Sharpener.Core
                 )).ToList();
 
             foreach (var pair in indexValueDict)
-                input = input.Replace("{" + pair.Item1 + "}", "{" + pair.Item3 + "}");
+                input = input.Replace("{" + pair.Item1, "{" + pair.Item3);
 
             var args = indexValueDict.Select(x => x.Item2).ToArray();
             var resultFormat = String.Format(input, args);
