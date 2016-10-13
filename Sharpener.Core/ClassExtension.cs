@@ -11,6 +11,11 @@ namespace Sharpener.Core
         {
             return haystack.Contains(needle);
         }
+        
+        public static bool IsIn<T>(this T needle, T first, T second, params T[] remainder)
+        {
+            return needle == first || needle == second || remainder.Contains(needle);
+        }
 
         public static void ThrowIfNull<T>(this T obj, [CallerMemberName]string callingObjectName = null)
         {
