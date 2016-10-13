@@ -13,15 +13,20 @@ namespace Sharpener.Core
         {
             return source > target;
         }
-        
+
         public static bool IsWeekend(this DateTime value)
         {
             return (value.DayOfWeek == DayOfWeek.Sunday || value.DayOfWeek == DayOfWeek.Saturday);
         }
-        
+
         public static bool IsWeekday(this DateTime value)
         {
             return !IsWeekend(value);
+        }
+
+        public static bool IsBetween(this DateTime middle, DateTime left, DateTime right)
+        {
+            return left < middle && middle < right;
         }
     }
 }
