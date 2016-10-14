@@ -44,5 +44,23 @@ namespace Sharpener.Core
             }
             return dt;
         }
+        
+        public static IEnumerable<T> Repeat<T>(this IEnumerable<T> source, int times = 2)
+        {
+            var counter = 0;
+            while (counter < times)
+            {
+                foreach (var item in source)
+                    yield return item;
+                counter++;
+            }
+        }
+
+        public static IEnumerable<T> RepeatIndefinitely<T>(this IEnumerable<T> source)
+        {
+            while (true)
+                foreach (var item in source)
+                    yield return item;
+        }
     }
 }
