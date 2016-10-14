@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Sharpener.Core
+{
+    public static class FuncExtension
+    {
+
+        public static Func<TFirst, TLast> CombineWith<TFirst, TSecond, TLast>(
+            this Func<TFirst, TSecond> first,
+            Func<TSecond, TLast> second)
+        {
+            return _CombineWith<TFirst, TLast>(first, second);
+        }
+
+        public static Func<TFirst, TLast> CombineWith<TFirst, TSecond, TThird, TLast>(
+            this Func<TFirst, TSecond> first,
+            Func<TSecond, TThird> second,
+            Func<TThird, TLast> third)
+        {
+            return _CombineWith<TFirst, TLast>(first, second, third);
+        }
+
+        public static Func<TFirst, TLast> CombineWith<TFirst, TSecond, TThird, TFourth, TLast>(
+            this Func<TFirst, TSecond> first,
+            Func<TSecond, TThird> second,
+            Func<TThird, TFourth> third,
+            Func<TFourth, TLast> fourth)
+        {
+            return _CombineWith<TFirst, TLast>(first, second, third, fourth);
+        }
+
+        private static Func<TFirst, TLast> _CombineWith<TFirst, TLast>(
+            dynamic firstFunc, dynamic secondFunc,
+            params dynamic[] otherFuncs)
+        {
+            var list = new List<dynamic> { firstFunc, secondFunc };
+            list.AddRange(otherFuncs);
+
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                var first = list[i];
+                var second = list[i + 1];
+                var res = new Func<dynamic, dynamic>(x => second(first(x)));
+                list[i + 1] = res;
+            }
+
+            var resultFunc = list.LastOrDefault() as Func<object, object>;
+            var typedFunc = new Func<TFirst, TLast>(x => (TLast)resultFunc(x));
+
+            return typedFunc;
+        }
+    }
+}
