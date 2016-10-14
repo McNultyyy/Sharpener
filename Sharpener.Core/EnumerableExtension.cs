@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 
 namespace Sharpener.Core
 {
@@ -23,6 +24,25 @@ namespace Sharpener.Core
         public static string JoinWith(this IEnumerable<string> strings, string separator)
         {
             return String.Join(separator, strings);
+        }
+        
+        public static DataTable ToDataTable<T>(this IEnumerable<T> source)
+        {
+            var dt = new DataTable(typeof(T).Name);
+            var properties = typeof(T).GetProperties();
+
+            foreach (var property in properties)
+            {
+                var colName = property.Name;
+                dt.Columns.Add(colName, property.PropertyType);
+            }
+
+            foreach (var item in source)
+            {
+                var values = properties.Select(x => x.GetValue(item));
+                dt.Rows.Add(values);
+            }
+            return dt;
         }
     }
 }
