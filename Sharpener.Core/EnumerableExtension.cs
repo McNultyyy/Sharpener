@@ -62,5 +62,23 @@ namespace Sharpener.Core
                 foreach (var item in source)
                     yield return item;
         }
+        
+        public static int Product(this IEnumerable<int> source)
+        {
+            return DynamicProduct(source, 1);
+        }
+
+        public static int? Product(this IEnumerable<int?> source)
+        {
+            return DynamicProduct(source, 1);
+        }
+        private static T DynamicProduct<T>(this IEnumerable<T> source, T one)
+        {
+            dynamic product = one;
+            foreach (var item in source)
+                product *= item;
+
+            return product;
+        }
     }
 }
