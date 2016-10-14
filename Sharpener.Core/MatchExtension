@@ -1,0 +1,30 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Sharpener.Core
+{
+    public static class MatchExtension
+    {
+        public static T ToObject<T>(this Match match) where T : new()
+        {
+            var t = new T();
+            var props = typeof(T).GetProperties();
+
+            for (int i = 0; i < props.Length; i++)
+            {
+                var value = match.Groups[i + 1].Value; //the first match is the whole string
+                props[i].SetValue(t, value);
+            }
+
+            return t;
+        }
+
+        public static IEnumerable<T> ToObject<T>(this MatchCollection matches) where T : new()
+        {
+            return
+                from Match match in matches
+                select ToObject<T>(match);
+        }
+    }
+}
