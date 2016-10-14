@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+
+namespace Sharpener.Core
+{
+    public static class ExceptionExtension
+    {
+        public static IEnumerable<Exception> InnerExceptions(this Exception e)
+        {
+            var inner = e.InnerException;
+            while (inner != null)
+            {
+                yield return inner;
+                inner = inner.InnerException;
+            }
+        }
+
+    }
+}
