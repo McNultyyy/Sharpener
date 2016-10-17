@@ -52,5 +52,14 @@ namespace Sharpener.Core
             var result = String.Format(format, objs.Distinct().ToArray());
             return result;
         }
+        
+        public static void SetPropertyValue<TSource, TProperty>(this TSource target,
+            Expression<Func<TSource, TProperty>> memberLamda, TProperty value)
+        {
+            var propertyName = memberLamda.GetMemberName();
+            var property = typeof(TSource).GetProperty(propertyName);
+
+            property.SetValue(target, value);
+        }
     }
 }
