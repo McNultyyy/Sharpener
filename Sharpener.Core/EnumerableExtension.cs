@@ -80,5 +80,31 @@ namespace Sharpener.Core
 
             return product;
         }
+        
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T item)
+        {
+            var result = Append(source, new[] { item });
+            return result;
+        }
+
+        public static IEnumerable<T> Append<T>(this IEnumerable<T> source, IEnumerable<T> items)
+        {
+            foreach (var item in source)
+                yield return item;
+            foreach (var item in items)
+                yield return item;
+        }
+
+        public static IEnumerable<T> Prepend<T>(this IEnumerable<T> source, IEnumerable<T> items)
+        {
+            var result = Append(items, source);
+            return result;
+        }
+
+        public static IEnumerable<T> Prepend<T>(this IEnumerable<T> source, T item)
+        {
+            var result = Append(new[] { item }, source);
+            return result;
+        }
     }
 }
