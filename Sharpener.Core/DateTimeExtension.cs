@@ -28,5 +28,35 @@ namespace Sharpener.Core
         {
             return left < middle && middle < right;
         }
+        
+                public static DateTime NextWorkday(this DateTime date)
+        {
+            var nextDay = date;
+            while (!nextDay.IsWeekday())
+            {
+                nextDay = nextDay.AddDays(1);
+            }
+            return nextDay;
+        }
+
+        public static DateTime NextWeekday(this DateTime date)
+        {
+            var nextDay = date;
+            while (!nextDay.IsWeekend())
+            {
+                nextDay = nextDay.AddDays(1);
+            }
+            return nextDay;
+        }
+
+        public static DateTime Next(this DateTime current, DayOfWeek dayOfWeek)
+        {
+            int offsetDays = dayOfWeek - current.DayOfWeek;
+            if (offsetDays <= 0)
+                offsetDays += 7;
+
+            DateTime result = current.AddDays(offsetDays);
+            return result;
+        }
     }
 }
