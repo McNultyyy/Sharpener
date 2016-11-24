@@ -1,0 +1,11 @@
+namespace Sharpener.Core
+{
+    public static class StructExtension
+    {
+        public static T? AsNullable<T>(this T t) where T : struct 
+        {
+            var result = new T?(t);
+            return result;
+        }
+    }
+}
