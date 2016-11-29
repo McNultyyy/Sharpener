@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace AdaptivToolkitWeb.Attributes
+namespace Sharpener.Web.Attributes
 {
     public class ServiceFilterAttribute : ActionFilterAttribute
     {
