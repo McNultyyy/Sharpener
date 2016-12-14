@@ -23,6 +23,11 @@ namespace Sharpener.Core
         {
             if (obj == null) throw new NullReferenceException(callingObjectName ?? "obj");
         }
+        
+        public static T As<T>(this object instance) where T : class
+        {
+            return instance as T;
+        }
 
         public static string ToString<T>(this T instance, string format)
         {
