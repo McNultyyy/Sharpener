@@ -29,36 +29,6 @@ namespace Sharpener.Core
             return instance as T;
         }
 
-        public static string ToString<T>(this T instance, string format)
-        {
-            var pattern = new Regex(@"\{(\w+)(\:.*?)?\}");
-
-            var dict = new Dictionary<string, int>();
-            var counter = 0;
-            var objs = new List<object>();
-            foreach (Match match in pattern.Matches(format))
-            {
-                var name = match.Groups[1].Value;
-                var nameFormatting = match.Groups[2].Value;
-                var stringToFind = String.Format("{{{0}{1}}}", name, nameFormatting);
-                var value = typeof(T).GetProperty(name).GetValue(instance);
-
-                int formatIndex;
-                if (!dict.TryGetValue(name, out formatIndex))
-                {
-                    dict.Add(name, counter);
-                    formatIndex = counter;
-                    counter++;
-                    var replacementString = String.Format("{{{0}{1}}}", formatIndex, nameFormatting);
-                    format = format.Replace(stringToFind, replacementString);
-                    objs.Add(value);
-                }
-            }
-
-            var result = String.Format(format, objs.Distinct().ToArray());
-            return result;
-        }
-        
         public static void SetPropertyValue<TSource, TProperty>(this TSource target,
             Expression<Func<TSource, TProperty>> memberLamda, TProperty value)
         {
