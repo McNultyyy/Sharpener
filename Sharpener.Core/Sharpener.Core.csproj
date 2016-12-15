@@ -46,6 +46,7 @@
     <Compile Include="ClassExtension.cs" />
     <Compile Include="DateTimeExtension.cs" />
     <Compile Include="EnumerableExtension.cs" />
+    <Compile Include="EnumExtension.cs" />
     <Compile Include="Event\TypeEventHandler.cs" />
     <Compile Include="ExpressionExtension.cs" />
     <Compile Include="IntExtension.cs" />
