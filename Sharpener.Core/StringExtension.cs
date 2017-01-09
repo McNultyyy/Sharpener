@@ -13,14 +13,19 @@ namespace Sharpener.Core
             return string.Format(format, args);
         }
 
+        public static string ReverseString(this string text)
+        {
+            return new string(text.Reverse().ToArray());
+        }
+
         public static string Left(this string input, int amount)
         {
-            return input.Skip(amount) as string;
+            return input.Substring(0, amount);
         }
 
         public static string Right(this string input, int amount)
         {
-            return input.Reverse().Take(amount).Reverse() as string;
+            return input.Substring(input.Length - amount, amount);
         }
     }
 }
