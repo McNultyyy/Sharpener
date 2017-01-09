@@ -27,5 +27,13 @@ namespace Sharpener.Core
         {
             return input.Substring(input.Length - amount, amount);
         }
+        
+        public static SecureString ToSecureString(this string input)
+        {
+            var secureString = new SecureString();
+            foreach (var character in input)
+                secureString.AppendChar(character);
+            return secureString;
+        }
     }
 }
