@@ -37,5 +37,7 @@ namespace Sharpener.Core
 
             property.SetValue(target, value);
         }
+        
+        //TODO: https://raw.githubusercontent.com/Burtsev-Alexey/net-object-deep-copy/master/ObjectExtensions.cs
     }
 }
