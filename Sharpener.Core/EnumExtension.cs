@@ -6,8 +6,6 @@ namespace Sharpener.Core
 {
     public static class EnumExtension
     {
-
-
         public static IEnumerable<EnumValue> GetValues<TEnum>()
             where TEnum : struct, IComparable, IFormattable, IConvertible
         {

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Security;
 
 namespace Sharpener.Core
 {
@@ -27,7 +24,7 @@ namespace Sharpener.Core
         {
             return input.Substring(input.Length - amount, amount);
         }
-        
+
         public static SecureString ToSecureString(this string input)
         {
             var secureString = new SecureString();
