@@ -106,5 +106,23 @@ namespace Sharpener.Core
             var result = Append(new[] { item }, source);
             return result;
         }
+        
+        public static bool ContainsAll<T>(this IEnumerable<T> input, IEnumerable<T> values)
+        {
+            var enumerable = input as IList<T> ?? input.ToList();
+            foreach (var value in values)
+                if (!enumerable.Contains(value))
+                    return false;
+            return true;
+        }
+
+        public static bool ContainsAny<T>(this IEnumerable<T> input, IEnumerable<T> values)
+        {
+            var enumerable = input as IList<T> ?? input.ToList();
+            foreach (var value in values)
+                if (enumerable.Contains(value))
+                    return true;
+            return false;
+        }
     }
 }
