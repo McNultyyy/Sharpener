@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 
-namespace Sharpener.Attributes
+namespace Sharpener.Web.Attributes
 {
     public class LayoutInjectorAttribute : ActionFilterAttribute
     {

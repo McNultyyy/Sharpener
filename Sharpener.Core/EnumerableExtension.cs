@@ -25,7 +25,7 @@ namespace Sharpener.Core
         {
             return String.Join(separator, strings);
         }
-        
+
         public static DataTable ToDataTable<T>(this IEnumerable<T> source)
         {
             var dt = new DataTable(typeof(T).Name);
@@ -44,7 +44,7 @@ namespace Sharpener.Core
             }
             return dt;
         }
-        
+
         public static IEnumerable<T> Repeat<T>(this IEnumerable<T> source, int times = 2)
         {
             var counter = 0;
@@ -62,7 +62,7 @@ namespace Sharpener.Core
                 foreach (var item in source)
                     yield return item;
         }
-        
+
         public static int Product(this IEnumerable<int> source)
         {
             return DynamicProduct(source, 1);
@@ -80,7 +80,7 @@ namespace Sharpener.Core
 
             return product;
         }
-        
+
         public static IEnumerable<T> Append<T>(this IEnumerable<T> source, T item)
         {
             var result = Append(source, new[] { item });
@@ -106,7 +106,7 @@ namespace Sharpener.Core
             var result = Append(new[] { item }, source);
             return result;
         }
-        
+
         public static bool ContainsAll<T>(this IEnumerable<T> input, IEnumerable<T> values)
         {
             var enumerable = input as IList<T> ?? input.ToList();
@@ -123,6 +123,12 @@ namespace Sharpener.Core
                 if (enumerable.Contains(value))
                     return true;
             return false;
+        }
+
+        public static TOutput[] ToArray<TInput, TOutput>(this IEnumerable<TInput> input, Func<TInput, TOutput> func)
+        {
+            var result = input.Select(func).ToArray();
+            return result;
         }
     }
 }

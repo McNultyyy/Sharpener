@@ -23,23 +23,22 @@ namespace Sharpener.Web.Attributes
             _typeInstance = Activator.CreateInstance(_typeToInject, injectedCtorParamValues) as ActionFilterAttribute;
         }
 
-        public virtual void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             _typeInstance.OnActionExecuting(filterContext);
         }
-
-
-        public virtual void OnActionExecuted(ActionExecutedContext filterContext)
+        
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             _typeInstance.OnActionExecuted(filterContext);
         }
 
-        public virtual void OnResultExecuting(ResultExecutingContext filterContext)
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             _typeInstance.OnResultExecuting(filterContext);
         }
 
-        public virtual void OnResultExecuted(ResultExecutedContext filterContext)
+        public override void OnResultExecuted(ResultExecutedContext filterContext)
         {
             _typeInstance.OnResultExecuted(filterContext);
         }

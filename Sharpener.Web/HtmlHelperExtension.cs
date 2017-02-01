@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Sharpener.Core;
+using Sharpener.Web.Attributes.Labels;
 
 namespace Sharpener.Web
 {
@@ -21,6 +23,22 @@ namespace Sharpener.Web
             var actionParams = expr.GetTypedFunctionInputValues().ToRouteValueDictionary();
 
             return html.Action(actionName, controllerName, actionParams);
+        }
+
+        public static MvcHtmlString CustomLabelFor<TModel, TValue>(this HtmlHelper<TModel> html,
+            Expression<Func<TModel, TValue>> expr)
+        {
+            var instance = html.ViewData.Model;
+            var property = instance.GetType().GetProperty(expr.GetMemberName());
+            var labelAttributes = property.GetCustomAttributes().OfType<LabelParameterAttribute>();
+
+            var htmlAttributes = labelAttributes.ToDictionary(
+                x => x.GetHtmlName(),
+                x => x.GetValue() as object //needs to be obj as it will be used as an anon obj.
+            );
+
+            var result = html.LabelFor(expr, htmlAttributes);
+            return result;
         }
     }
 }

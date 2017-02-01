@@ -41,9 +41,9 @@ namespace Sharpener.Core
 
         public static T DeepCopy<T>(this T original)
         {
-            return (T)Copy((object)original);
+            return (T)Copy(original);
         }
-        
+
         #region Internal Classes/Methods
         private static object Copy(this object originalObject)
         {
