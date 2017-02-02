@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
-using NUnit.Framework.Internal;
 
-namespace Sharpener.Core.Test
+namespace Sharpener.Core.Test.IntExtension
 {
     [TestFixture]
-    public class IntExtensionTest
+    public class IntToTest
     {
 
         [Test]
-        public void IntToForwardsTest()
+        public void EnumerateForward()
         {
             var expected = new[] { 1, 2, 3, 4, 5 };
             var actual = 1.To(5);
@@ -18,9 +17,9 @@ namespace Sharpener.Core.Test
 
 
         [Test]
-        public void IntToBackwardsTest()
+        public void EnumerateBackwards()
         {
-            var expected = new[] { 5,4,3,2,1 };
+            var expected = new[] { 5, 4, 3, 2, 1 };
             var actual = 5.To(1);
 
             Assert.That(actual, Is.EquivalentTo(expected));

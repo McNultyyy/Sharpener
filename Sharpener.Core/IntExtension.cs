@@ -17,6 +17,9 @@ namespace Sharpener.Core
 
         public static IEnumerable<T> Of<T>(this int amount, T instance)
         {
+            if (amount == 0) return Enumerable.Empty<T>();
+            if (amount < 0) throw new ArgumentException("Amount cannot be negative.");
+
             return 1.To(amount).Select(x => instance);
         }
 

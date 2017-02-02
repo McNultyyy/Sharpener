@@ -56,7 +56,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="IntExtensionTest.cs" />
+    <Compile Include="ClassExtension\ClassThrowIfNullTest.cs" />
+    <Compile Include="IntExtension\IntOfTest.cs" />
+    <Compile Include="IntExtension\IntToTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensionTest.cs" />
   </ItemGroup>
